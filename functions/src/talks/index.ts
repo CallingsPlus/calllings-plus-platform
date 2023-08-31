@@ -1,3 +1,3 @@
-import * as firebaseFunctions from "firebase-functions";
+// import * as firebaseFunctions from "firebase-functions";
 
 export const functions = {};
