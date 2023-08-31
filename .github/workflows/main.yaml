@@ -1,0 +1,44 @@
+name: Main
+on:
+  push:
+    branches:
+      - main
+env:
+  CI: true
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "18"
+
+      - name: Install Dependacies
+        run: cd functions && npm install
+
+      - name: Test to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: emulators:exec --only firestore \"cd functions && npm run test:ci --exit\"
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  deploy:
+    name: Deploy
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "18"
+      - name: Install Dependacies
+        run: cd functions && npm install
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --project default --force
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
