@@ -10,7 +10,15 @@
 // import { onRequest } from "firebase-functions/v2/https";
 // import * as logger from "firebase-functions/logger";
 
+// The Firebase Admin SDK to access Firestore.
+import * as admin from "firebase-admin";
+admin.initializeApp();
+admin.firestore().settings({ ignoreUndefinedProperties: true });
+
+import * as onboardingFunctions from "./onboarding";
 import * as talksFunctions from "./talks";
+import * as unitFunctions from "./units";
+import * as userFunctions from "./users";
 
 // Update config for emulator from the functions directory:
 // firebase functions:config:get > .runtimeconfig.json
@@ -18,4 +26,7 @@ import * as talksFunctions from "./talks";
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
 
+export const onboarding = onboardingFunctions.functions;
 export const talks = talksFunctions.functions;
+export const units = unitFunctions.functions;
+export const users = userFunctions.functions;
