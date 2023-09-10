@@ -32,5 +32,6 @@ module.exports = {
     "require-jsdoc": "warn",
     camelcase: "warn",
     "quote-props": 0,
+    "max-len": ["error", { code: 120 }],
   },
 };
