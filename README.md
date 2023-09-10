@@ -1,2 +1,2 @@
-# teancum-platform
-Backend for CallingsPlus platform
+# Callings+ Platform
+Backend for Callings+ platform
