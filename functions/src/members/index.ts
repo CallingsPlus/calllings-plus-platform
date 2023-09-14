@@ -2,12 +2,12 @@ import * as admin from "firebase-admin";
 import { onCall } from "firebase-functions/v2/https";
 import { DocumentData, DocumentSnapshot } from "firebase-admin/firestore";
 import OpenAI from "openai";
-import { defineString } from "firebase-functions/params";
+import { defineSecret } from "firebase-functions/params";
 import { v5 as uuidv5 } from "uuid";
 
 const UUID_NAMESPACE = "c2feec3c-8d47-449b-af18-8640a28e916f";
 
-const OPENAI_API_KEY = defineString("OPENAI_API_KEY");
+const OPENAI_API_KEY = defineSecret("OPENAI_API_KEY");
 
 const db = admin.firestore();
 const aiChunkSize = 20;
