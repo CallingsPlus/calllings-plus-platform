@@ -16,6 +16,7 @@ admin.initializeApp();
 admin.firestore().settings({ ignoreUndefinedProperties: true });
 
 import * as onboardingFunctions from "./onboarding";
+import * as membersFunctions from "./members";
 import * as talksFunctions from "./talks";
 import * as unitFunctions from "./units";
 import * as userFunctions from "./users";
@@ -27,6 +28,7 @@ import * as userFunctions from "./users";
 // https://firebase.google.com/docs/functions/typescript
 
 export const onboarding = onboardingFunctions.functions;
+export const members = membersFunctions.functions;
 export const talks = talksFunctions.functions;
 export const units = unitFunctions.functions;
 export const users = userFunctions.functions;

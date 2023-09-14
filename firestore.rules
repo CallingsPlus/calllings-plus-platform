@@ -8,6 +8,10 @@ service cloud.firestore {
 
     match /units/{unitID} {
       allow read: if request.auth.token.unit == resource.data.unitID;
+
+      match /members/{members} {
+        allow read, write: if request.auth.token.unit == resource.data.unitID;
+      }
     }
 
     match /{document=**} {
