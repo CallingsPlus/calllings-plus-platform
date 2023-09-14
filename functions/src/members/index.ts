@@ -4,6 +4,7 @@ import { DocumentData, DocumentSnapshot } from "firebase-admin/firestore";
 import OpenAI from "openai";
 import { defineSecret } from "firebase-functions/params";
 import { v5 as uuidv5 } from "uuid";
+import { onDocumentCreated } from "firebase-functions/v2/firestore";
 
 const UUID_NAMESPACE = "c2feec3c-8d47-449b-af18-8640a28e916f";
 
@@ -26,6 +27,16 @@ export interface Member {
   email: string;
   phone: string;
   gender: string;
+  isHidden: boolean;
+  notes: string;
+
+  // Talks
+  talkSuccessPercentage?: number;
+  lastTalkGiven?: admin.firestore.Timestamp;
+
+  // Prayers
+  prayerSuccessPercentage?: number;
+  lastPrayerGiven?: admin.firestore.Timestamp;
 }
 
 export const functions = {
@@ -47,6 +58,27 @@ export const functions = {
       await importMembers(unit, data);
 
       return true;
+    }
+  ),
+  onCreate: onDocumentCreated(
+    "units/{unitID}/members/{memberID}",
+    async (event) => {
+      const { unitID, memberID } = event.params;
+
+      db.runTransaction(async (transaction) => {
+        transaction.set(
+          db.doc(`units/${unitID}/members/${memberID}`),
+          {
+            isHidden: false,
+            notes: "",
+            talkSuccessPercentage: 1,
+            lastTalkGiven: undefined,
+            prayerSuccessPercentage: 1,
+            lastPrayerGiven: undefined,
+          },
+          { merge: true }
+        );
+      });
     }
   ),
   //   test_import: onRequest(

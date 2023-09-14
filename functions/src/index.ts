@@ -17,6 +17,7 @@ admin.firestore().settings({ ignoreUndefinedProperties: true });
 
 import * as onboardingFunctions from "./onboarding";
 import * as membersFunctions from "./members";
+import * as prayersFunctions from "./prayers";
 import * as talksFunctions from "./talks";
 import * as unitFunctions from "./units";
 import * as userFunctions from "./users";
@@ -29,6 +30,7 @@ import * as userFunctions from "./users";
 
 export const onboarding = onboardingFunctions.functions;
 export const members = membersFunctions.functions;
+export const prayers = prayersFunctions.functions;
 export const talks = talksFunctions.functions;
 export const units = unitFunctions.functions;
 export const users = userFunctions.functions;

@@ -19,12 +19,52 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
+          "fieldPath": "isHidden",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "lastName",
           "order": "ASCENDING"
         },
         {
           "fieldPath": "firstName",
           "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "members",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isHidden",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastTalkGiven",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "talkSuccessPercentage",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "members",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isHidden",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastPrayerGiven",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "prayerSuccessPercentage",
+          "order": "DESCENDING"
         }
       ]
     }

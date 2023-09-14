@@ -33,21 +33,9 @@ export const functions = {
     });
   }),
   syncUserAdmin: onDocumentUpdated("users/{uid}", async (event) => {
-    const beforeData: UserAdminData = event.data?.before.data() || {};
     const afterData: UserAdminData = event.data?.after.data() || {};
 
-    // Skip updates where _lastUpdated field changed, to avoid infinite loops
-    const skipUpdate =
-      beforeData._lastUpdated &&
-      afterData._lastUpdated &&
-      beforeData._lastUpdated !== afterData._lastUpdated;
-    if (skipUpdate) {
-      console.log("No changes");
-      return;
-    }
-
-    // Create a new JSON payload and check that it's under the 1000 character max
-    const { _lastUpdated, _unit, _role } = afterData;
+    const { _unit, _role } = afterData;
     const newClaims: UserClaims = { _unit: _unit, _role: _role };
     const stringifiedClaims = JSON.stringify(newClaims);
     if (stringifiedClaims.length > 1000) {
@@ -61,12 +49,6 @@ export const functions = {
     const uid = event.params.uid;
     console.log(`Setting custom claims for ${uid}`, newClaims);
     await auth.setCustomUserClaims(uid, newClaims);
-
-    console.log(`Updating document timestamp, last updated ${_lastUpdated}`);
-    await event.data?.after.ref.update({
-      _lastUpdated: event.time,
-      ...newClaims,
-    });
   }),
 };
 
